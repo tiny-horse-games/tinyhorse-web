@@ -21,6 +21,11 @@ app.get('/health', function(req, res){
     res.send('1');
 });
 
+// Handler for GET /img/logo
+app.get('/img/logo.png', function(req, res){
+    res.send(fs.readFileSync('./img/logo.png'), {'Content-Type': 'image/png'});
+});
+
 // Handler for GET /asciimo
 app.get('/asciimo', function(req, res){
     var link="https://a248.e.akamai.net/assets.github.com/img/d84f00f173afcf3bc81b4fad855e39838b23d8ff/687474703a2f2f696d6775722e636f6d2f6b6d626a422e706e67";
@@ -34,7 +39,7 @@ app.get('/', function(req, res){
 
 
 //  Get the environment variables we need.
-var ipaddr  = process.env.OPENSHIFT_INTERNAL_IP;
+var ipaddr  = process.env.OPENSHIFT_INTERNAL_IP || 'localhost';
 var port    = process.env.OPENSHIFT_INTERNAL_PORT || 8080;
 
 if (typeof ipaddr === "undefined") {
